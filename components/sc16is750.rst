@@ -21,35 +21,39 @@ sleeping current. They also provides 8 additional programmable I/O pins and
 additional advanced features such as auto
 hardware and software flow control, automatic RS-485 support, and software reset. 
 
-These components are usually already installed on Breakout boards 
+.. figure:: images/sc16is752-bd.png
+  :align: center
+
+You can buy breakout boards that have these chips already installed
 `SC16IS750 <https://www.aliexpress.com/premium/sc16is750-board.html>`__
 and `SC16IS752 <https://www.aliexpress.com/premium/sc16is752-board.html>`__
 
-.. warning:: 
+.. note:: 
   A SC16IS750 breakout board is equipped with a MIC5219 LG33 voltage regulator, 
   which provides 3.3V to the chip and a 14.7456MHz crystal.\ :raw-html-m2r:`<br>`
   A SC16IS752 breakout board is equipped with a AMS1117-3.3 voltage regulator, 
   which provides 3.3V to the chip and a 1.8432Mhz crystal.\ :raw-html-m2r:`<br>`
-  **Therefore you must power these boards with 5v (3.3v won't work)**. \ :raw-html-m2r:`<br>`
+
+.. warning:: 
+  **Due to the fact that these boards are equipped with voltage regulator you must power 
+  power them 5v (3.3v won't work)**. \ :raw-html-m2r:`<br>`
   The level of i2c pins is 3.3V, but all pins are 5V tolerant.
 
-.. TODO here we should provide the figure of both boards side by side
-.. figure:: images/r307-full.jpg
-    :align: center
-    :width: 80.0%
+.. figure:: images/sc16is750.jpg
+  :align: center
 
-    sc16is750-board and sc16is752-boards.
+  sc16is750 and sc16is752 boards
 
 .. note:: 
   The range of possible addresses for these boards are ``0x90`` to ``0xAE``.
-  The actual choice of  depends on state of the 2 address pins A0 A1. 
+  The actual choice of  depends on state of the 2 address pins A0-A1. 
   Please see the table below to set the I²C device address for the boards.
   A mixture of **up to sixteen** of these boards can reside on the same I²C bus.
 
   Once configured, you can use any of the UART channels (2 for SC16IS752
-  board) for your projects. Each channel acts for the connected components a
-  s a virtual UART Bus. You can also use any of the 8 GPIO pins (pin number
-  0-7). Any option accepting a :ref:`Pin Schema <config-pin_schema>` can theoretically 
+  board) for your projects. Each channel acts for the connected components as a 
+  virtual UART Bus. You can also use any of the 8 GPIO pins (pin number   0-7). 
+  Any option accepting a :ref:`Pin Schema <config-pin_schema>` can theoretically 
   be used, but some more complicated components that do communication through 
   this I/O expander will not work.
 
@@ -143,13 +147,13 @@ and `SC16IS752 <https://www.aliexpress.com/premium/sc16is752-board.html>`__
     # Individual uart Devices
     sensor:
       - platform: pmsx003
+        uart_id: uart_1
         type: PMSX003
         pm_1_0:
           name: "PM <1.0µm Concentration"
-        uart_id: uart_1
 
-Configuration variables:
-~~~~~~~~~~~~~~~~~~~~~~~~
+Component configuration variables:
+**********************************
 
 - **id** (**Required**, :ref:`config-id`): The id to use for this SC16IS750 component.
 - **address** (*Optional*, int): The I²C address of the bridge.
@@ -168,15 +172,19 @@ Configuration variables:
 Pin configuration variables:
 ****************************
 
-- **pca9554** (**Required**, :ref:`config-id`): The id of the ``SC16IS750`` component of the pin.
+- **sc16is750** (**Required**, :ref:`config-id`): The id of the ``SC16IS750`` component of the pin.
 - **number** (**Required**, int): The pin number.
 - **inverted** (*Optional*, boolean): If all read and written values
   should be treated as inverted. Defaults to ``false``.
-- **mode** (*Optional*, string): A pin mode to set for the pin at. One of ``INPUT`` or ``OUTPUT``.
+- **mode** (*Optional*, string): A pin mode to set for the pin at. One of ``INPUT`` or ``OUTPUT``. 
 
-.. TODO must be completed 
 See Also
---------
+********
 
 - :ref:`i2c`
+- :doc:`switch/gpio`
+- :doc:`binary_sensor/gpio`
+- `SC16IS750 datasheet <https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf>`__
+- `SC16IS752 datasheet <https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf>`__
+- :apiref:`sc16is750/sc16is750.h`
 - :ghedit:`Edit`
