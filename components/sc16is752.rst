@@ -2,10 +2,9 @@ SC16IS752 UART & IO Expander
 ============================
 
 
-.. TODO need to make a very compressed image for TOC
 .. seo::
     :description: Instructions for setting up SC16IS752 I²C Component in ESPHome.
-    :image: sdp31.jpg
+    :image: sc16is752.png
 
 .. role:: raw-html-m2r(raw)
    :format: html
@@ -23,7 +22,7 @@ programmable I/O pins.
 .. figure:: images/sc16is752-bd.png
   :align: center
 
-The breakout-boards are easier to use and can be found
+The breakout-boards can be found at
 `SC16IS750 board <https://www.aliexpress.com/premium/sc16is750-board.html>`__
 and `SC16IS752 board <https://www.aliexpress.com/premium/sc16is752-board.html>`__
 
@@ -38,11 +37,10 @@ and `SC16IS752 board <https://www.aliexpress.com/premium/sc16is752-board.html>`_
   must be powered with 5v (3.3v won't work)**. \ :raw-html-m2r:`<br>`
   The level of i2c pins is 3.3V, but all pins are 5V tolerant.
 
-.. figure:: images/sc16is752.jpg
+.. figure:: images/sc16is750-752.png
   :align: center
 
-  sc16is750 and sc16is752 boards
-
+  SC16IS750 and SC16IS752 Breakout boards
 .. note:: 
   The range of possible addresses for these boards are ``0x90`` to ``0xAE``.
   The actual choice of  depends on state of the 2 address pins A0-A1. 
@@ -177,7 +175,7 @@ Component configuration variables:
   If you are using one of the breakout-boards described above, the frequency of the crystal 
   does not need to be specified. For a sc16is750 board the crystal will be set to 14745600
   and for a sc16is752 board the crystal will be set to 3072000. If you are building your own board
-  you need to specify the value of the quartz connected to the chip.
+  you need to specify the value of the crystal connected to the chip.
 - **channels** (*Optional*): The UART Bus Channels
 
   - **uart_id** (**Required**, :ref:`config-id`): The id to use for this virtual UART Bus.
@@ -196,6 +194,7 @@ Pin configuration variables:
 - **inverted** (*Optional*, boolean): If all read and written values
   should be treated as inverted. Defaults to ``false``.
 - **mode** (*Optional*, string): A pin mode to set for the pin at. One of ``INPUT`` or ``OUTPUT``. Default to ``INPUT``
+
 See Also
 ********
 
