@@ -179,12 +179,19 @@ Component configuration variables:
 - **channels** (*Optional*): The UART Bus Channels
 
   - **uart_id** (**Required**, :ref:`config-id`): The id to use for this virtual UART Bus.
-  - **channel** (**Required**): The channel to use for this virtual UART Bus.
-    Channel must be zero for the sc16is750 and zero or one for the sc16is752. 
+  - **channel** (**Optional/Required**): The channel to use for this virtual UART Bus.
+    A sc16is750 has only one channel 0 and therefore in that case channel is **optional**. 
+    A sc16is752 has two channels and therefore in that case the channel is **required**.
+
   - **baud_rate** (**Required**, int): The baud rate of the UART bus.
   - **data_bits** (*Optional*, int): The number of data bits used on the UART bus. Options: ``5`` to ``8``. Defaults to ``8``.
   - **parity** (*Optional*): The parity used on the UART bus. Options: ``NONE``, ``EVEN``, ``ODD``. Defaults to ``NONE``.
   - **stop_bits** (*Optional*, int): The number of stop bits to send. Options: ``1``, ``2``. Defaults to ``1``.
+
+  .. warning:: 
+    It seems that some older sc16750 breakout-boards used a different crystal (12.288 MHz). Therefore check 
+    carefully the value of the crystal and if it is different from the default specified above use the 
+    **crystal** configuration variable
 
 Pin configuration variables:
 ****************************
