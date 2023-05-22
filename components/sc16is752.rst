@@ -121,7 +121,7 @@ Address table
         id: bridge_0
         i2c_id: i2c_bus
         model: sc16is752
-        channels: 
+        uart: 
           - uart_id: uart_0
             channel: 0
             baud_rate: 9600
@@ -163,44 +163,46 @@ Address table
         pm_1_0:
           name: "PM <1.0µm Concentration"
 
+
+
 Component configuration variables:
 **********************************
 
 - **id** (**Required**, :ref:`config-id`): The id to use for this SC16IS752 component.
-- **address** (*Optional*, int): The I²C address of this component.
-  Defaults to ``0x90``.
-- **i2c_id** (*Optional*): The I²C Bus ID. Defaults to ``false`` 
-- **model** (*Optional*): The board's model: ``sc16is750``, or ``sc16is752``).   Defaults to ``sc16is752``.
+- **address** (*Optional*): The I²C address of this component. Defaults to ``0x90``.
+- **i2c_id** (*Optional*): The I²C Bus ID. Defaults to the default i²c bus.
+- **model** (*Optional*): The board's model: ``sc16is750``, or ``sc16is752``). Defaults to ``sc16is752``.
 - **crystal** (*Optional*): The frequency in Hz of the crystal connected to the chip.
   If you are using one of the breakout-boards described above, the frequency of the crystal 
   does not need to be specified. For a sc16is750 board the crystal will be set to 14745600
   and for a sc16is752 board the crystal will be set to 3072000. If you are building your own board
   you need to specify the value of the crystal connected to the chip.
-- **channels** (*Optional*): The UART Bus Channels
+- **uart** (*Optional*): The UART Buses. This optional parameter must be specified if you want
+  to use the UART functionality of the component.
 
   - **uart_id** (**Required**, :ref:`config-id`): The id to use for this virtual UART Bus.
-  - **channel** (**Optional/Required**): The channel to use for this virtual UART Bus.
-    A sc16is750 has only one channel 0 and therefore in that case channel is **optional**. 
-    A sc16is752 has two channels and therefore in that case the channel is **required**.
-
-  - **baud_rate** (**Required**, int): The baud rate of the UART bus.
-  - **data_bits** (*Optional*, int): The number of data bits used on the UART bus. Options: ``5`` to ``8``. Defaults to ``8``.
+  - **channel** (*Optional*): The channel number to use for this virtual UART Bus. Default to ``0``.
+    A sc16is750 has only one channel ``0`` and therefore in that case you do not need to specify it.
+    A sc16is752 has two possible channels and therefore in that case if you use the channel 1 it needs
+    to be specified. Obviously if you are using both channels they must use different channel number 
+    (i.e. ``0`` and ``1``)
+  - **baud_rate** (**Required**): The baud rate of the UART bus.
+  - **data_bits** (*Optional*): The number of data bits used on the UART bus. Options: ``5`` to ``8``. Defaults to ``8``.
   - **parity** (*Optional*): The parity used on the UART bus. Options: ``NONE``, ``EVEN``, ``ODD``. Defaults to ``NONE``.
-  - **stop_bits** (*Optional*, int): The number of stop bits to send. Options: ``1``, ``2``. Defaults to ``1``.
+  - **stop_bits** (*Optional*): The number of stop bits to send. Options: ``1``, ``2``. Defaults to ``1``.
 
-  .. warning:: 
-    It seems that some older sc16750 breakout-boards used a different crystal (12.288 MHz). Therefore check 
-    carefully the value of the crystal and if it is different from the default specified above use the 
-    **crystal** configuration variable
+.. warning:: 
+  It seems that some older sc16750 breakout-boards used a different crystal (12.288 MHz). Therefore check 
+  carefully the value of the crystal and if it is different from the default specified above use the 
+  **crystal** configuration variable
 
 Pin configuration variables:
 ****************************
 
 - **sc16is752** (**Required**, :ref:`config-id`): The id of the ``SC16IS752`` component of the pin.
-- **number** (**Required**, int): The pin number (``0`` to ``7``)
-- **inverted** (*Optional*, boolean): If all read and written values
-  should be treated as inverted. Defaults to ``false``.
-- **mode** (*Optional*, string): A pin mode to set for the pin at. One of ``INPUT`` or ``OUTPUT``. Default to ``INPUT``
+- **number** (**Required**): The pin number (``0`` to ``7``)
+- **inverted** (*Optional*): If all read and written values should be treated as inverted. Defaults to ``false``.
+- **mode** (*Optional*): A pin mode to set for the pin at. One of ``INPUT`` or ``OUTPUT``. Default to ``INPUT``
 
 See Also
 ********
