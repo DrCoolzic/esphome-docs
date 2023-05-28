@@ -4,7 +4,7 @@ SC16IS75X UART & IO Expander
 
 .. seo::
     :description: Instructions for setting up SC16IS75X I²C Component in ESPHome.
-    :image: sc16is752.png
+    :image: sc16is75x.png
 
 .. role:: raw-html-m2r(raw)
    :format: html
@@ -18,7 +18,7 @@ The SC16IS750 is a slave I²C chip that provides a single-channel
 UART while the SC16IS752 provides a dual-channel UART. 
 Both models offers 8 additional programmable GPIO pins. 
 
-.. figure:: images/sc16is752-bd.png
+.. figure:: images/sc16is750-bd.png
   :align: center
 
 The breakout-boards can be found in many places for example at
@@ -116,7 +116,7 @@ Address table
 .. code-block:: yaml
 
     # Example configuration entry
-    sc16is752:
+    sc16is75x:
       - address: 0x90
         id: bridge_0
         i2c_id: i2c_bus
@@ -131,12 +131,12 @@ Address table
             channel: 1
             baud_rate: 19200
 
-    # individual binary_sensor inputs
+    # Individual binary_sensor inputs
     binary_sensor:
       - platform: gpio
         name: "Bridge 0 Pin #0"
         pin:
-          sc16is752: bridge_0
+          sc16is75x: bridge_0
           # Use pin number 0
           number: 0
           mode:
@@ -148,14 +148,14 @@ Address table
       - platform: gpio
         name: "Bridge 0 Pin #1"
         pin:
-          sc16is752: bridge_0
+          sc16is75x: bridge_0
           # Use pin number 1
           number: 1
           mode:
             output: true
           inverted: false
 
-    # Device using one of the sc16is752 Uart channel
+    # Device using one of the sc16is75x Uart channel
     sensor:
       - platform: pmsx003
         uart_id: uart_1
@@ -168,7 +168,7 @@ Address table
 Component configuration variables:
 **********************************
 
-- **id** (**Required**, :ref:`config-id`): The id to use for this SC16IS752 component.
+- **id** (**Required**, :ref:`config-id`): The id to use for this SC16IS75X component.
 - **address** (*Optional*): The I²C address of this component. Defaults to ``0x48``.
 - **i2c_id** (*Optional*): The I²C Bus ID. Defaults to the default i²c bus.
 - **model** (*Optional*): The board's model: ``sc16is750``, or ``sc16is752``). Defaults to ``sc16is752``.
@@ -199,7 +199,7 @@ Component configuration variables:
 Pin configuration variables:
 ****************************
 
-- **sc16is752** (**Required**, :ref:`config-id`): The id of the ``SC16IS752`` component of the pin.
+- **sc16is75x** (**Required**, :ref:`config-id`): The id of the ``SC16IS75X`` component of the pin.
 - **number** (**Required**): The pin number (``0`` to ``7``)
 - **inverted** (*Optional*): If all read and written values should be treated as inverted. Defaults to ``false``.
 - **mode** (*Optional*): A pin mode to set for the pin at. One of ``INPUT`` or ``OUTPUT``. Default to ``INPUT``
@@ -212,5 +212,5 @@ See Also
 - :doc:`binary_sensor/gpio`
 - `SC16IS750 datasheet <https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf>`__
 - `SC16IS752 datasheet <https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf>`__
-- :apiref:`sc16is752/sc16is752.h`
+- :apiref:`sc16is75x/sc16is75x.h`
 - :ghedit:`Edit`
