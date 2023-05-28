@@ -1,40 +1,39 @@
-SC16IS752 UART & IO Expander
+SC16IS75X UART & IO Expander
 ============================
 
 
 .. seo::
-    :description: Instructions for setting up SC16IS752 I²C Component in ESPHome.
+    :description: Instructions for setting up SC16IS75X I²C Component in ESPHome.
     :image: sc16is752.png
 
 .. role:: raw-html-m2r(raw)
    :format: html
 
-The SC16IS752 component allows you to use SC16IS750
+The SC16IS75X component allows you to use SC16IS750
 (`Datasheet <https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf>`__)
 or SC16IS752 (`Datasheet <https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf>`__)
 chips or breakout-boards in ESPHome. 
 
-The SC16IS750 is a slave I²C chip that provides a single-channel high
-performance UART while the SC16IS752 provides a dual-channel UART. 
-Both models offers data rates up to 5 Mbit/s. They also provides 8 additional 
-programmable I/O pins. 
+The SC16IS750 is a slave I²C chip that provides a single-channel 
+UART while the SC16IS752 provides a dual-channel UART. 
+Both models offers 8 additional programmable GPIO pins. 
 
 .. figure:: images/sc16is752-bd.png
   :align: center
 
-The breakout-boards can be found at
+The breakout-boards can be found in many places for example at
 `SC16IS750 board <https://www.aliexpress.com/premium/sc16is750-board.html>`__
 and `SC16IS752 board <https://www.aliexpress.com/premium/sc16is752-board.html>`__
 
 .. note:: 
   A SC16IS750 breakout-board is equipped with a MIC5219 LG33 voltage regulator, 
-  which provides 3.3V to the chip and a 14.7456MHz crystal.\ :raw-html-m2r:`<br>`
+  which provides 3.3V to the SC16IS750 chip and has a 14.7456MHz crystal.\ :raw-html-m2r:`<br>`
   A SC16IS752 breakout-board is equipped with a AMS1117-3.3 voltage regulator, 
-  which provides 3.3V to the chip and a 3.072Mhz crystal.\ :raw-html-m2r:`<br>`
+  which provides 3.3V to the SC16IS752 chip and has a 3.072Mhz crystal.\ :raw-html-m2r:`<br>`
 
 .. warning:: 
   **Due to the fact that these boards are equipped with voltage regulator they must 
-  must be powered with 5v (3.3v won't work)**. \ :raw-html-m2r:`<br>`
+  must be powered with at least 5v (3.3v won't work)**. \ :raw-html-m2r:`<br>`
   The level of i2c pins is 3.3V, but all pins are 5V tolerant.
 
 .. figure:: images/sc16is750-752.png
@@ -42,13 +41,14 @@ and `SC16IS752 board <https://www.aliexpress.com/premium/sc16is752-board.html>`_
 
   SC16IS750 and SC16IS752 Breakout boards
 .. note:: 
-  The range of possible addresses for these boards are ``0x90`` to ``0xAE``.
+  The range of possible addresses for these boards are ``0x48`` to ``0x57``.
   The actual choice of  depends on state of the 2 address pins A0-A1. 
-  Please see the table below to set the I²C device address for the boards.
-  A mixture of **up to sixteen** of these boards can reside on the same I²C bus.
+  The table below show how to connect the A0-A1 pins to set the I²C device 
+  address of the boards. A mixture of **up to sixteen** of these boards 
+  can therefore reside on the same I²C bus.
 
   Once configured, you can use any of the UART channels (2 for SC16IS752
-  board) in your projects. Each channel acts for the connected components as a 
+  board) in your device. Each channel acts for the connected components as a 
   virtual UART Bus. You can also use any of the 8 GPIO pins (pin number ``0-7``). 
   Any option accepting a :ref:`Pin Schema <config-pin_schema>` can theoretically 
   be used, but some more complicated components that do communication through 
@@ -62,52 +62,52 @@ and `SC16IS752 board <https://www.aliexpress.com/premium/sc16is752-board.html>`_
    * - I²C address
      - A1
      - A0
-   * - 0x90
+   * - 0x48
      - VDD
      - VDD
-   * - 0x92
+   * - 0x49
      - VDD
      - VSS
-   * - 0x94
+   * - 0x4A
      - VDD
      - SCL
-   * - 0x96
+   * - 0x4B
      - VDD
      - SCA
-   * - 0x98
+   * - 0x4C
      - VSS
      - VDD
-   * - 0x9A
+   * - 0x4D
      - VSS
      - VSS
-   * - 0x9C
+   * - 0x4E
      - VSS
      - SCL
-   * - 0x9E
+   * - 0x4F
      - VSS
      - SDA
-   * - 0xA0
+   * - 0x50
      - SCL
      - VDD
-   * - 0xA2
+   * - 0x51
      - SCL
      - VSS
-   * - 0xA4
+   * - 0x52
      - SCL
      - SCL
-   * - 0xA6
+   * - 0x53
      - SCL
      - SDA
-   * - 0xA8
+   * - 0x54
      - SDA
      - VDD
-   * - 0xAA
+   * - 0x55
      - SDA
      - VSS
-   * - 0xAC
+   * - 0x56
      - SDA
      - VSS
-   * - 0xAE
+   * - 0x57
      - SDA
      - SDA
 
@@ -169,7 +169,7 @@ Component configuration variables:
 **********************************
 
 - **id** (**Required**, :ref:`config-id`): The id to use for this SC16IS752 component.
-- **address** (*Optional*): The I²C address of this component. Defaults to ``0x90``.
+- **address** (*Optional*): The I²C address of this component. Defaults to ``0x48``.
 - **i2c_id** (*Optional*): The I²C Bus ID. Defaults to the default i²c bus.
 - **model** (*Optional*): The board's model: ``sc16is750``, or ``sc16is752``). Defaults to ``sc16is752``.
 - **crystal** (*Optional*): The frequency in Hz of the crystal connected to the chip.
