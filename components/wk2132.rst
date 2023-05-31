@@ -22,39 +22,36 @@ UART channel can be set independently. The module provides 2Mbps maximum communi
 Documentation about the DFRobot module can be found at the 
 `DFROBOT Wiki <https://wiki.dfrobot.com/Gravity%3A%20IIC%20to%20Dual%20UART%20Module%20SKU%3A%20DFR0627>`__
 
-.. .. figure:: images/dfrobot-wk2132.png
-..   :align: center
 .. figure:: images/DFR0627.jpg
+  :align: center
 
 .. note:: 
   At most four such modules can be connected onto one I²C controller board to expand 8 
   hardware serial ports. The range of possible addresses for these boards are 
   ``0x??`` to ``0x??``. The actual choice of  depends on state of A0 and A1. \ :raw-html-m2r:`<br>`
-  Once configured, you can use any of the UART channels to connect your UART Devices. 
-  Each channel acts for the connected component as a virtual UART Bus. 
+  Once configured, you can use the UART channels to connect your UART Devices. 
+  Each channel acts, for the connected component, as a virtual UART Bus. 
 
 .. list-table::
    :header-rows: 1
    :width: 300px
-   :align: left
+   :align: center
 
    * - I²C address
      - A1
      - A0
-   * - 0x48
+   * - 0x??
      - 0
      - 0
-   * - 0x49
+   * - 0x??
      - 0
      - 1
-   * - 0x4A
+   * - 0x??
      - 1
      - 0
-   * - 0x4B
+   * - 0x??
      - 1
      - 1
-
-Address table
 
 .. code-block:: yaml
 
@@ -63,7 +60,7 @@ Address table
       - address: 0x??
         id: bridge_0
         i2c_id: i2c_bus
-        crystal: 3027000
+        crystal: 14745600
         uart: 
           - uart_id: uart_0
             channel: 0
@@ -91,8 +88,8 @@ Component configuration variables:
 - **crystal** (*Optional*): The frequency in Hz of the crystal connected to the chip.
   If you are using DFROBOT module, the frequency of the crystal  does not need to be specified. 
   it will be set automatically to 14745600 Hz.
-- **uart** (*Optional*): The UART Buses. This optional parameter must be specified if you want
-  to use the UART of the component.
+- **uart** (*Optional*): The UART Buses. This parameter is optional but it must be specified if 
+  you want to use any UART on the component.
 
   - **uart_id** (**Required**, :ref:`config-id`): The id to use for this virtual UART Bus.
   - **channel** (*Optional*): The channel number to use for this virtual UART Bus. Default to ``0``.
