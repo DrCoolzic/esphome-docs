@@ -1,5 +1,5 @@
-WK2132 I²C to UART Expander
-===========================
+WK2132 I²C UART Expander
+========================
 
 .. seo::
     :description: Instructions for setting up WK2132 I²C Component in ESPHome.
@@ -13,11 +13,8 @@ The WK2132 component allows you to use the
 chip or the DFROBOT `Gravity: I²C to Dual UART Module <https://www.dfrobot.com/product-2001.html>`__
 module directly in ESPHome. 
 
-.. figure:: images/wk2132-bd.PNG
-   :align: center
-
 This WK2132 chip/module is an I²C to Dual UART with data transmission rate up to 1 Mbps. Each UART channel has independent 
-256-byte FIFO hardware buffer for transmitting and receiving. The baud rate, word length, and check format of every 
+256-byte FIFO hardware buffer for transmitting and receiving. The baud rate, and check format of every 
 UART channel can be set independently. Note that the data bit length is equal to 8 and cannot be changed.
 The module provides 2 Mbps maximum communication rate. \ :raw-html-m2r:`<br>`
 Documentation about the DFRobot module can be found at the 
@@ -25,7 +22,6 @@ Documentation about the DFRobot module can be found at the
 
 .. figure:: images/DFR0627.jpg
   :align: center
-
 
 At most four such modules can be connected onto one I²C controller board to expand to 8 
 hardware serial ports. The base addresses for these boards depend on state of two
@@ -63,6 +59,15 @@ Each channel acts, for the connected component, as a virtual UART Bus.
 .. code-block:: yaml
 
     # Example configuration entry
+    uart:
+      id: dummy
+      tx_pin: 3
+      baud_rate: 9600
+    i2c:
+      sda: 21 # 5
+      scl: 22 # 4
+      id: i2c_bus
+
     wk2132:
       - address: 0x70
         id: bridge_0
@@ -105,7 +110,8 @@ Component configuration variables:
 
 .. important:: 
   Currently, due to some internal limitation, it is necessary to declare a ``uart:`` component in
-  your configuration even if you do not need one. This requirement might disappear in the future.
+  your configuration even if you do not need one. See the example configuration. This requirement 
+  might disappear in the future.
 
 See Also
 ********
