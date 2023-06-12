@@ -173,6 +173,65 @@ this I/O expander will not work.
         pm_1_0:
           name: "PM <1.0µm Concentration"
 
+.. caution:: 
+  Currently, due to some internal limitation, it is necessary to declare a ``uart:`` component in
+  your configuration even if you do not need one. See the example above. This requirement 
+  might disappear in the future.
+
+Choosing an I²C to UART component
+*********************************
+There are two components in the ESPHome library that allow you to add a number 
+of UART channels from an I2C bus. This allows you to connect a large number of 
+devices that communicate with rs232 interface via a single I²C bus. 
+These two components are:
+
+- The sc16is75x component, which lets you use sc16is750 chips 
+  or breakbooards, as well as sc16is752 chips and breakboards.
+- The wk2132 component, which lets you use wk2132 chips or 
+  DFRobot `Gravity: I²C to Dual UART Module. <https://www.dfrobot.com/product-2001.html>`__
+
+The following table compares the characteristics of these different components to help 
+you choose the most suitable one for your application.
+
+.. list-table::
+   :header-rows: 1
+   :width: 400px
+   :align: center
+
+   * - 
+     - SC16IS750
+     - SC16IS752
+     - WK2132
+   * - Power_supply
+     - 5 V (1)
+     - 5 V (1)
+     - 3.3 V
+   * - Max_number
+     - 16 (2)
+     - 2 * 16 (2)
+     - 2 * 4
+   * - Word_length
+     - 6-8
+     - 6-8
+     - 8
+   * - Parity
+     - Odd/Even/None
+     - Odd/Even/None
+     - Odd/Even/None
+   * - FIFO
+     - 64 (3)
+     - 64 (3)
+     - 256 (3)
+
+(1) Boards based on SC16IS75X have a voltage regulator and are normally 
+    designed for 5 V power supply. However, experience has shown that they 
+    work correctly with a 3.3 V power supply.
+(2) Normally, boards based on SC16IS75X can choose between 16 different 
+    addresses on the I2C bus. Personally, I've never managed to use 
+    these components with an address other than 0x4D?
+(3) Normally, if the component is used correctly, the size of the FIFO 
+    is not irrelevant. However, a larger FIFO size provides a certain 
+    safety margin.
 
 Component configuration variables:
 **********************************
@@ -213,11 +272,6 @@ Pin configuration variables:
 - **number** (**Required**): The pin number (``0`` to ``7``)
 - **inverted** (*Optional*): If all read and written values should be treated as inverted. Defaults to ``false``.
 - **mode** (*Optional*): A pin mode to set for the pin at. One of ``INPUT`` or ``OUTPUT``. Default to ``INPUT``
-
-.. important:: 
-  Currently, due to some internal limitation, it is necessary to declare a ``uart:`` component in
-  your configuration even if you do not need one. See the example configuration. This requirement 
-  might disappear in the future.
 
 See Also
 ********
