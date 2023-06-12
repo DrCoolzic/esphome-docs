@@ -178,12 +178,12 @@ this I/O expander will not work.
   your configuration even if you do not need one. See the example above. This requirement 
   might disappear in the future.
 
-Choosing an I²C to UART component
-*********************************
+Choosing an I²C to UART components
+**********************************
 There are two components in the ESPHome library that allow you to add a number 
 of UART channels from an I2C bus. This allows you to connect a large number of 
 devices that communicate with rs232 interface via a single I²C bus. 
-These two components are:
+These two components are
 
 - The sc16is75x component, which lets you use sc16is750 chips 
   or breakbooards, as well as sc16is752 chips and breakboards.
@@ -206,7 +206,7 @@ you choose the most suitable one for your application.
      - 5 V (1)
      - 5 V (1)
      - 3.3 V
-   * - Max_number
+   * - Max_UARTs
      - 16 (2)
      - 2 * 16 (2)
      - 2 * 4
@@ -226,9 +226,9 @@ you choose the most suitable one for your application.
 (1) Boards based on SC16IS75X have a voltage regulator and are normally 
     designed for 5 V power supply. However, experience has shown that they 
     work correctly with a 3.3 V power supply.
-(2) Normally, boards based on SC16IS75X can choose between 16 different 
-    addresses on the I2C bus. Personally, I've never managed to use 
-    these components with an address other than 0x4D?
+(2) Normally, for boards based on SC16IS75X you can choose between 16 different 
+    addresses on the I2C bus. Personally, I've never managed to change 
+    the address (always stuck to 0x4D)?
 (3) Normally, if the component is used correctly, the size of the FIFO 
     is not irrelevant. However, a larger FIFO size provides a certain 
     safety margin.
