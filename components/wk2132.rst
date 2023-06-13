@@ -102,9 +102,11 @@ devices that communicate with rs232 interface via a single I²C bus.
 These two components are
 
 - The sc16is75x component, which lets you use sc16is750 chips 
-  or breakbooards, as well as sc16is752 chips and breakboards.
+  or breakbooards, as well as sc16is752 chips and breakboards. 
+  Up to 4 of these boards can be on an I²C bus simultaneously.
 - The wk2132 component, which lets you use wk2132 chips or 
-  DFRobot `Gravity: I²C to Dual UART Module. <https://www.dfrobot.com/product-2001.html>`__
+  DFRobot `Gravity: I²C to Dual UART Module. <https://www.dfrobot.com/product-2001.html>`__ 
+  Up to 4 of these boards can be on an I²C bus simultaneously.
 
 The following table compares the characteristics of these different components to help 
 you choose the most suitable one for your application.
@@ -123,9 +125,9 @@ you choose the most suitable one for your application.
      - 5 V (1)
      - 3.3 V
    * - Max_UARTs
-     - 16 (2)
-     - 2 * 16 (2)
-     - 2 * 4
+     - 16
+     - 16 x 2
+     - 4 x 2
    * - Word_length
      - 6-8
      - 6-8
@@ -135,17 +137,14 @@ you choose the most suitable one for your application.
      - Odd/Even/None
      - Odd/Even/None
    * - FIFO
-     - 64 (3)
-     - 64 (3)
-     - 256 (3)
+     - 64 (2)
+     - 64 (2)
+     - 256 (2)
 
 (1) Boards based on SC16IS75X have a voltage regulator and are normally 
     designed for 5 V power supply. However, experience has shown that they 
     work correctly with a 3.3 V power supply.
-(2) Normally, for boards based on SC16IS75X you can choose between 16 different 
-    addresses on the I2C bus. Personally, I've never managed to change 
-    the address (always stuck to 0x4D)?
-(3) Normally, if the component is used correctly, the size of the FIFO 
+(2) If the component is used correctly, the size of the FIFO 
     is not irrelevant. However, a larger FIFO size provides a certain 
     safety margin.
 
