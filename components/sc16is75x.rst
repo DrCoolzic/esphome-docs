@@ -105,9 +105,8 @@ and `SC16IS752 board <https://www.aliexpress.com/premium/sc16is752-board.html>`_
      - SDA
 
 .. warning:: 
-  I did not succeed in changing the address of the board. Whatever signal I apply
-  to the pin A0, A1 the address is stuck to 0x5D (A0=A1=VSS). Hope you have more
-  success.
+  Personally I have not been able to change the address of the boards. Whatever signal I apply
+  to the pins A0, A1 the address is always equal to 0x5D (A0=A1=VSS) ?
 
 Once configured, you can use any of the UART channels (2 for SC16IS752
 board) in your device. Each channel acts for the connected components as a 
@@ -175,7 +174,7 @@ this I/O expander will not work.
 
 .. caution:: 
   Currently, due to some internal limitation, it is necessary to declare a ``uart:`` component in
-  your configuration even if you do not need one. See the example above. This requirement 
+  your configuration **even if you do not need one**. See the example above. This requirement 
   might disappear in the future.
 
 Choosing an I²C to UART components
