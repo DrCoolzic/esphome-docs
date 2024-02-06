@@ -79,8 +79,7 @@ Configuration variables:
   alternatively be specified.
 - **crystal** (*Optional*): The frequency in Hz of the crystal connected to the chip.
   The default value is 14745600 Hz.
-- **uart** (*Req
-uired*): The UART channels.
+- **uart** (*Required*): The UART channels.
 
   - **uart_id** (**Required**, :ref:`config-id`): The id to use for this UART channel.
   - **channel** (**Required**): The channel number to use for this virtual UART. Options: 

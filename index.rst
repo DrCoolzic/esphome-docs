@@ -882,6 +882,7 @@ Miscellaneous Components
     SN74HC595 I/O Expander, components/sn74hc595, sn74hc595.jpg
     WK2132 I²C/SPI Dual UART Expander, components/wk2132, wk2132.jpg
     WK2168 I²C/SPI Quad UART & GPIO Expander, components/wk2168, wk2168.jpg
+    WeiKai I²C/SPI UART & GPIO Expander, components/weikai, wk2168.jpg
     XL9535 I/O Expander, components/xl9535, xl9535.svg
     SIM800L, components/sim800l, sim800l.jpg
     DFPlayer, components/dfplayer, dfplayer.svg, dark-invert
