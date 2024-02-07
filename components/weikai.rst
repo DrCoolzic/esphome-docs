@@ -1,5 +1,5 @@
-WeiKai SPI/I²C UART & GPIO Expander
-===================================
+WeiKai SPI/I²C UART/IO Expander
+===============================
 
 .. seo::
     :description: Instructions for setting up WeiKai SPI/I²C to UART Expanders in ESPHome.
@@ -11,15 +11,15 @@ WeiKai SPI/I²C UART & GPIO Expander
 .. role:: raw-html-m2r(raw)
    :format: html
 
-WeiKai Microelectronics provides a large range of UART & GPIO expansion chips
+**WeiKai Microelectronics** provides a family of UART & GPIO expansion chips
 that interfaces to a micro-controller through SPI or I²C bus.
-The ESPHome WeiKai component supports the following WeiKai chips:
+
+The ESPHome ``WeiKai`` component supports the following WeiKai chips:
 `WK2168-IQPG <https://jlcpcb.com/partdetail/WEIKAI-WK2168IQPG/C401041>`__
 `WK2132-ISSG <https://jlcpcb.com/partdetail/Weikai-WK2132ISSG/C401039>`__
 `WK2124-ISSG <https://jlcpcb.com/partdetail/Weikai-WK2124ISSG/C86332>`__
 `WK2204-IQNG <https://jlcpcb.com/partdetail/Weikai-WK2204IQNG/C401040>`__
-`WK2212-IQNG <https://jlcpcb.com/partdetail/Weikai-WK2212IQNG/C2987671>`__
-
+`WK2212-IQNG <https://jlcpcb.com/partdetail/Weikai-WK2212IQNG/C2987671>`__ \ :raw-html-m2r:`<br>`
 It can also be used with evaluation board equipped with these chips, such as:
 - `WK2168 Chip Development Board <https://fr.aliexpress.com/item/1005002198759633.html>`__
 - `WK2132 Chip Development Board <https://www.aliexpress.com/item/1005002018579265.html>`__
@@ -64,13 +64,13 @@ As you can see most of the components can interface either through un I²C bus o
 they provide either 2 or 4 serial channels, and some provide 8 input/output pins.
 
 Each UART channel has two independent 256-byte FIFO hardware buffers to transmit and 
-receive and support data transmission rates up to 1 Mbps. \ :raw-html-m2r:`<br>`
-It's worth noting that the baud rate and parity format of each UART channel can be 
-configured independently. However, the data bit length is fixed at 8 and cannot be changed. 
+receive and support data transmission rates up to 1 Mbps. 
+The baud rate and parity format of each UART channel can be configured independently. 
+However, the data bit length is fixed at 8. \ :raw-html-m2r:`<br>`
 Utilizing the UART channels enables you to connect your UART devices, with each channel functioning 
-as a virtual UART bus for the connected component. \ :raw-html-m2r:`<br>`
+as a virtual UART bus for the connected component.
 
-For the chips with I/O pins you can use them as any of the other GPIO pins. 
+The I/O pins of the WeiKai chips can be use as any of the other GPIO pins. 
 Any option accepting a :ref:`Pin Schema <config-pin_schema>` can theoretically 
 be used, but some more complicated components that do communication through 
 this I/O expander might not work.
@@ -86,7 +86,8 @@ with a individual CS.
 
 Here is an example of configuration entry for a wk2168_spi component. For the other components
 just replace the name of the component and do not use more channels that the chip can
-support (an error message will be generated in this case).
+support (an error message will be generated in this case). Note that for the ``WK2124-ISSG`` chip
+you have to use ``wk2204_spi`` as the two chips are similar.
 
 .. code-block:: yaml
 
@@ -269,10 +270,13 @@ Pin configuration variables:
 Performance considerations:
 ---------------------------
 
+Bus speed 
+*********
+
 Please be aware that the communication between the WeiKai chips and the processor occurs on an external bus, 
 with a relatively low operating frequency. Therefore tasks such as checking the status of the chip's 
-registers or transferring bytes from the internal FIFOs to the processor may experience delays. \ :raw-html-m2r:`<br>`
-To improve this, it is strongly recommended to increase the bus frequency. 
+registers or transferring bytes from the internal FIFOs to the processor may take time. \ :raw-html-m2r:`<br>`
+To improve this situation, it is strongly recommended to increase the bus frequency. 
 
 - With a SPI bus this can be done on the WeiKai component by specifying `data_rate`. For example:
 
@@ -295,6 +299,30 @@ To improve this, it is strongly recommended to increase the bus frequency.
       scan: true
       id: bus_i2c
       frequency: 800kHz
+
+Maximum Baud rate
+*****************
+
+The maximum baud_rate is proportional to the crystal frequency. The following table
+gives the maximum baud_rate at different system clock:
+
+..  list-table:: maximum baud rate
+    :header-rows: 1
+    :width: 300px
+    :align: center
+
+    * - Clock
+      - Max Bd
+    * - 14745600 Hz
+      - 921600 Bd
+    * - 11059200 Hz
+      - 691200 Bd
+    * - 7372800 Hz
+      - 460800 Bd
+    * - 3686400 Hz
+      - 230400 Bd
+    * - 1843200 Hz
+      - 115200 Bd
 
 See Also
 --------
